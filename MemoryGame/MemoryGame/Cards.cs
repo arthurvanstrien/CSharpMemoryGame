@@ -40,7 +40,7 @@ namespace MemoryGame
             List<string> cards = new List<string>();
             images = images.OrderBy(a => Guid.NewGuid()).ToList();
 
-            for (int i = 0; i < numberOf; i++)
+            for (int i = 0; i < ((numberOf / 2) - 1); i++)
             {
                 cards.Add(images[i]);
                 cards.Add(images[i]);

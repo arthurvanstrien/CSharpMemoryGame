@@ -10,6 +10,9 @@ namespace MemoryGame
         public StartupScreen()
         {
             InitializeComponent();
+            Random random = new Random();
+            int gridWidth = random.Next(2, 5) * 2;
+            int gridHeigh = random.Next(5, 8);
 
             String playerNameBoxPlaceholder = "Your name";
             PlayerNameBox.Text = playerNameBoxPlaceholder;
@@ -31,8 +34,10 @@ namespace MemoryGame
             HostGameButton.Click += new EventHandler(hostGameButton_Click);
             void hostGameButton_Click(object sender, EventArgs e)
             {
+                HostGame hostGame = new HostGame(gridWidth, gridHeigh);
+
                 //Opens the new window.
-                Game gamePanel = new Game();
+                Game gamePanel = new Game(PlayerNameBox.Text, "Other player", gridWidth, gridHeigh);
                 gamePanel.Show();
 
                 //Hides the startup window
@@ -47,11 +52,11 @@ namespace MemoryGame
                 
 
                 //Opens the new window.
-                Game gamePanel = new Game();
-                gamePanel.Show();
+                //Game gamePanel = new Game();
+                //gamePanel.Show();
 
                 //Hides the startup window
-                Hide();
+                //Hide();
             }
 
 
