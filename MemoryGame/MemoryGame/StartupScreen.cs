@@ -11,6 +11,21 @@ namespace MemoryGame
         {
             InitializeComponent();
 
+            String playerNameBoxPlaceholder = "Your name";
+            PlayerNameBox.Text = playerNameBoxPlaceholder;
+            PlayerNameBox.GotFocus += new EventHandler(clearPlayerNameBox);
+            void clearPlayerNameBox(object sender, EventArgs e)
+            {
+                PlayerNameBox.Text = "";
+            }
+            PlayerNameBox.LostFocus += new EventHandler(fillPlayerNameBox);
+            void fillPlayerNameBox(object server, EventArgs e)
+            {
+                if (PlayerNameBox.Text == "")
+                    PlayerNameBox.Text = playerNameBoxPlaceholder;
+            }
+
+
             //This button handles the start of a game that players can join.
             HostGameButton.Click += new EventHandler(hostGameButton_Click);
             void hostGameButton_Click(object sender, EventArgs e)
