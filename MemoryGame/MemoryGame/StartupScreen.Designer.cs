@@ -32,6 +32,7 @@
             this.JoinGameButton = new System.Windows.Forms.Button();
             this.IPField = new System.Windows.Forms.TextBox();
             this.PortField = new System.Windows.Forms.TextBox();
+            this.IpAndPortDivider = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // HostGameButton
@@ -56,21 +57,31 @@
             // 
             this.IPField.Location = new System.Drawing.Point(197, 82);
             this.IPField.Name = "IPField";
-            this.IPField.Size = new System.Drawing.Size(272, 29);
+            this.IPField.Size = new System.Drawing.Size(287, 29);
             this.IPField.TabIndex = 2;
             // 
             // PortField
             // 
-            this.PortField.Location = new System.Drawing.Point(508, 82);
+            this.PortField.Location = new System.Drawing.Point(515, 82);
             this.PortField.Name = "PortField";
             this.PortField.Size = new System.Drawing.Size(100, 29);
             this.PortField.TabIndex = 3;
+            // 
+            // IpAndPortDivider
+            // 
+            this.IpAndPortDivider.AutoSize = true;
+            this.IpAndPortDivider.Location = new System.Drawing.Point(491, 82);
+            this.IpAndPortDivider.Name = "IpAndPortDivider";
+            this.IpAndPortDivider.Size = new System.Drawing.Size(18, 25);
+            this.IpAndPortDivider.TabIndex = 4;
+            this.IpAndPortDivider.Text = ":";
             // 
             // StartupScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(901, 726);
+            this.Controls.Add(this.IpAndPortDivider);
             this.Controls.Add(this.PortField);
             this.Controls.Add(this.IPField);
             this.Controls.Add(this.JoinGameButton);
@@ -88,5 +99,6 @@
         private System.Windows.Forms.Button JoinGameButton;
         private System.Windows.Forms.TextBox IPField;
         private System.Windows.Forms.TextBox PortField;
+        private System.Windows.Forms.Label IpAndPortDivider;
     }
 }
