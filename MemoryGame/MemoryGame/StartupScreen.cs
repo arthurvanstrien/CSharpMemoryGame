@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MemoryGame
@@ -15,6 +8,17 @@ namespace MemoryGame
         public StartupScreen()
         {
             InitializeComponent();
+
+            HostGameButton.Click += new System.EventHandler(HostGameButton_Click);
+            void HostGameButton_Click(object sender, EventArgs e)
+            {
+                //Opens the new window.
+                Game gamePanel = new Game();
+                gamePanel.Show();
+
+                //Hides the startup window
+                Hide();
+            }
         }
     }
 }
