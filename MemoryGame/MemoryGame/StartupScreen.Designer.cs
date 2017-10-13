@@ -33,13 +33,14 @@
             this.IPField = new System.Windows.Forms.TextBox();
             this.PortField = new System.Windows.Forms.TextBox();
             this.IpAndPortDivider = new System.Windows.Forms.Label();
+            this.RulesBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // HostGameButton
             // 
             this.HostGameButton.Location = new System.Drawing.Point(13, 13);
             this.HostGameButton.Name = "HostGameButton";
-            this.HostGameButton.Size = new System.Drawing.Size(142, 33);
+            this.HostGameButton.Size = new System.Drawing.Size(142, 43);
             this.HostGameButton.TabIndex = 0;
             this.HostGameButton.Text = "Host Game";
             this.HostGameButton.UseVisualStyleBackColor = true;
@@ -48,21 +49,21 @@
             // 
             this.JoinGameButton.Location = new System.Drawing.Point(13, 82);
             this.JoinGameButton.Name = "JoinGameButton";
-            this.JoinGameButton.Size = new System.Drawing.Size(147, 33);
+            this.JoinGameButton.Size = new System.Drawing.Size(147, 38);
             this.JoinGameButton.TabIndex = 1;
             this.JoinGameButton.Text = "Join Game";
             this.JoinGameButton.UseVisualStyleBackColor = true;
             // 
             // IPField
             // 
-            this.IPField.Location = new System.Drawing.Point(197, 82);
+            this.IPField.Location = new System.Drawing.Point(198, 86);
             this.IPField.Name = "IPField";
             this.IPField.Size = new System.Drawing.Size(287, 29);
             this.IPField.TabIndex = 2;
             // 
             // PortField
             // 
-            this.PortField.Location = new System.Drawing.Point(515, 82);
+            this.PortField.Location = new System.Drawing.Point(515, 86);
             this.PortField.Name = "PortField";
             this.PortField.Size = new System.Drawing.Size(100, 29);
             this.PortField.TabIndex = 3;
@@ -70,17 +71,26 @@
             // IpAndPortDivider
             // 
             this.IpAndPortDivider.AutoSize = true;
-            this.IpAndPortDivider.Location = new System.Drawing.Point(491, 82);
+            this.IpAndPortDivider.Location = new System.Drawing.Point(491, 89);
             this.IpAndPortDivider.Name = "IpAndPortDivider";
             this.IpAndPortDivider.Size = new System.Drawing.Size(18, 25);
             this.IpAndPortDivider.TabIndex = 4;
             this.IpAndPortDivider.Text = ":";
+            // 
+            // RulesBox
+            // 
+            this.RulesBox.Location = new System.Drawing.Point(13, 150);
+            this.RulesBox.Multiline = true;
+            this.RulesBox.Name = "RulesBox";
+            this.RulesBox.Size = new System.Drawing.Size(865, 507);
+            this.RulesBox.TabIndex = 6;
             // 
             // StartupScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(901, 726);
+            this.Controls.Add(this.RulesBox);
             this.Controls.Add(this.IpAndPortDivider);
             this.Controls.Add(this.PortField);
             this.Controls.Add(this.IPField);
@@ -100,5 +110,6 @@
         private System.Windows.Forms.TextBox IPField;
         private System.Windows.Forms.TextBox PortField;
         private System.Windows.Forms.Label IpAndPortDivider;
+        private System.Windows.Forms.TextBox RulesBox;
     }
 }
