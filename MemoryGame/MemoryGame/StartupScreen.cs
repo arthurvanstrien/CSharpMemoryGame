@@ -16,7 +16,8 @@ namespace MemoryGame
             PlayerNameBox.GotFocus += new EventHandler(clearPlayerNameBox);
             void clearPlayerNameBox(object sender, EventArgs e)
             {
-                PlayerNameBox.Text = "";
+                if(PlayerNameBox.Text == playerNameBoxPlaceholder)
+                    PlayerNameBox.Text = "";
             }
             PlayerNameBox.LostFocus += new EventHandler(fillPlayerNameBox);
             void fillPlayerNameBox(object server, EventArgs e)
@@ -59,7 +60,8 @@ namespace MemoryGame
             IPField.GotFocus += new EventHandler(clearIPField);
             void clearIPField(object sender, EventArgs e)
             {
-                IPField.Text = "";
+                if(IPField.Text == ipFieldPlaceholder)
+                    IPField.Text = "";
             }
             IPField.LostFocus += new EventHandler(fillIPField);
             void fillIPField(object server, EventArgs e)
@@ -74,7 +76,8 @@ namespace MemoryGame
             PortField.GotFocus += new EventHandler(clearPortField);
             void clearPortField(object sender, EventArgs e)
             {
-                PortField.Text = "";
+                if(PortField.Text == portFieldPlaceholder)
+                    PortField.Text = "";
             }
             PortField.LostFocus += new EventHandler(fillPortField);
             void fillPortField(object sender, EventArgs e)
