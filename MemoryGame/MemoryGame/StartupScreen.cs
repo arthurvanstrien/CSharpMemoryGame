@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MemoryGame
@@ -10,16 +11,17 @@ namespace MemoryGame
         public StartupScreen()
         {
             InitializeComponent();
+
             Random random = new Random();
-            int gridWidth = random.Next(2, 5) * 2;
-            int gridHeigh = random.Next(5, 8);
+            int gridWidth = random.Next(2, 4) * 2;
+            int gridHeight = 5;
 
             String playerNameBoxPlaceholder = "Your name";
             PlayerNameBox.Text = playerNameBoxPlaceholder;
             PlayerNameBox.GotFocus += new EventHandler(clearPlayerNameBox);
             void clearPlayerNameBox(object sender, EventArgs e)
             {
-                if(PlayerNameBox.Text == playerNameBoxPlaceholder)
+                if (PlayerNameBox.Text == playerNameBoxPlaceholder)
                     PlayerNameBox.Text = "";
             }
             PlayerNameBox.LostFocus += new EventHandler(fillPlayerNameBox);
@@ -34,14 +36,7 @@ namespace MemoryGame
             HostGameButton.Click += new EventHandler(hostGameButton_Click);
             void hostGameButton_Click(object sender, EventArgs e)
             {
-                HostGame hostGame = new HostGame(gridWidth, gridHeigh);
-
-                //Opens the new window.
-                Game gamePanel = new Game(PlayerNameBox.Text, "Other player", gridWidth, gridHeigh);
-                gamePanel.Show();
-
-                //Hides the startup window
-                Hide();
+                new HostGame(gridWidth, gridHeight, PlayerNameBox.Text, this);
             }
 
 
@@ -49,7 +44,7 @@ namespace MemoryGame
             JoinGameButton.Click += new EventHandler(joinGameButton_Click);
             void joinGameButton_Click(object sender, EventArgs e)
             {
-                
+
 
                 //Opens the new window.
                 //Game gamePanel = new Game();
@@ -65,7 +60,7 @@ namespace MemoryGame
             IPField.GotFocus += new EventHandler(clearIPField);
             void clearIPField(object sender, EventArgs e)
             {
-                if(IPField.Text == ipFieldPlaceholder)
+                if (IPField.Text == ipFieldPlaceholder)
                     IPField.Text = "";
             }
             IPField.LostFocus += new EventHandler(fillIPField);
@@ -81,7 +76,7 @@ namespace MemoryGame
             PortField.GotFocus += new EventHandler(clearPortField);
             void clearPortField(object sender, EventArgs e)
             {
-                if(PortField.Text == portFieldPlaceholder)
+                if (PortField.Text == portFieldPlaceholder)
                     PortField.Text = "";
             }
             PortField.LostFocus += new EventHandler(fillPortField);
@@ -118,6 +113,43 @@ namespace MemoryGame
                 rulesBoxText = rulesBoxText + text + "\r\n";
             }
             RulesBox.Text = rulesBoxText;
+        }
+
+        public void SetMessageBox(string message, Color color)
+        {
+            MessageBox.Invoke(new Action(() =>
+            {
+                MessageBox.ForeColor = color;
+                MessageBox.Text = message;
+            }));
+        }
+
+        public void EnableInput(bool state)
+        {
+            HostGameButton.Invoke(new Action(() =>
+            {
+                HostGameButton.Enabled = state;
+            }));
+
+            JoinGameButton.Invoke(new Action(() =>
+            {
+                JoinGameButton.Enabled = state;
+            }));
+
+            IPField.Invoke(new Action(() =>
+            {
+                IPField.Enabled = state;
+            }));
+
+            PortField.Invoke(new Action(() =>
+            {
+                PortField.Enabled = state;
+            }));
+
+            PlayerNameBox.Invoke(new Action(() =>
+            {
+                PlayerNameBox.Enabled = state;
+            }));
         }
     }
 }

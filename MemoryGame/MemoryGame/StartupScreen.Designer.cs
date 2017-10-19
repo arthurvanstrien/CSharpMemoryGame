@@ -35,6 +35,7 @@
             this.IpAndPortDivider = new System.Windows.Forms.Label();
             this.RulesBox = new System.Windows.Forms.TextBox();
             this.PlayerNameBox = new System.Windows.Forms.TextBox();
+            this.MessageBox = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // HostGameButton
@@ -80,7 +81,7 @@
             // 
             // RulesBox
             // 
-            this.RulesBox.Location = new System.Drawing.Point(12, 192);
+            this.RulesBox.Location = new System.Drawing.Point(12, 195);
             this.RulesBox.Multiline = true;
             this.RulesBox.Name = "RulesBox";
             this.RulesBox.Size = new System.Drawing.Size(865, 507);
@@ -93,11 +94,21 @@
             this.PlayerNameBox.Size = new System.Drawing.Size(595, 29);
             this.PlayerNameBox.TabIndex = 7;
             // 
+            // MessageBox
+            // 
+            this.MessageBox.AutoSize = true;
+            this.MessageBox.Location = new System.Drawing.Point(196, 67);
+            this.MessageBox.Name = "MessageBox";
+            this.MessageBox.Size = new System.Drawing.Size(19, 25);
+            this.MessageBox.TabIndex = 8;
+            this.MessageBox.Text = "-";
+            // 
             // StartupScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(901, 726);
+            this.Controls.Add(this.MessageBox);
             this.Controls.Add(this.PlayerNameBox);
             this.Controls.Add(this.RulesBox);
             this.Controls.Add(this.IpAndPortDivider);
@@ -121,5 +132,6 @@
         private System.Windows.Forms.Label IpAndPortDivider;
         private System.Windows.Forms.TextBox RulesBox;
         private System.Windows.Forms.TextBox PlayerNameBox;
+        private System.Windows.Forms.Label MessageBox;
     }
 }
