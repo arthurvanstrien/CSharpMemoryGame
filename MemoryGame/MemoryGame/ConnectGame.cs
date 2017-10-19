@@ -27,6 +27,9 @@ namespace MemoryGame
 
             //Hides the startup window
             startupScreen.Hide();
+
+            //Final step: always close connection or the port stays locked.
+            client.Close();
         }
 
         private static void WriteToConsole(string message)
