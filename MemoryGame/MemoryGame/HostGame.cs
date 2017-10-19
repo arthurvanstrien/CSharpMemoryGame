@@ -38,7 +38,7 @@ namespace MemoryGame
             bool ipIsOk = IPAddress.TryParse("127.0.0.1", out localhost);
             if (!ipIsOk) { WriteToConsole("The IP adress cannot be parsed."); Environment.Exit(1); }
 
-            TcpListener listener = new TcpListener(localhost, 1330);
+            TcpListener listener = new TcpListener(localhost, 1300);
             listener.Start();
 
             WriteToConsole("Waiting on client " + DateTime.Now.ToString());

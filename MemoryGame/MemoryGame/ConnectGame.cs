@@ -10,7 +10,7 @@ namespace MemoryGame
         public ConnectGame(StartupScreen startupScreen)
         {
             TcpClient client = new TcpClient();
-            client.Connect("127.0.0.1", 1330);
+            client.Connect("127.0.0.1", 1300);
             startupScreen.SetMessageBox("Establishing connection", System.Drawing.Color.Blue);
             startupScreen.EnableInput(false);
 
