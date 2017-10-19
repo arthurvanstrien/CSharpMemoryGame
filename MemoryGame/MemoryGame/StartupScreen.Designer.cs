@@ -31,8 +31,6 @@
             this.HostGameButton = new System.Windows.Forms.Button();
             this.JoinGameButton = new System.Windows.Forms.Button();
             this.IPField = new System.Windows.Forms.TextBox();
-            this.PortField = new System.Windows.Forms.TextBox();
-            this.IpAndPortDivider = new System.Windows.Forms.Label();
             this.RulesBox = new System.Windows.Forms.TextBox();
             this.PlayerNameBox = new System.Windows.Forms.TextBox();
             this.MessageBox = new System.Windows.Forms.Label();
@@ -60,24 +58,8 @@
             // 
             this.IPField.Location = new System.Drawing.Point(191, 126);
             this.IPField.Name = "IPField";
-            this.IPField.Size = new System.Drawing.Size(287, 29);
+            this.IPField.Size = new System.Drawing.Size(417, 29);
             this.IPField.TabIndex = 2;
-            // 
-            // PortField
-            // 
-            this.PortField.Location = new System.Drawing.Point(508, 126);
-            this.PortField.Name = "PortField";
-            this.PortField.Size = new System.Drawing.Size(100, 29);
-            this.PortField.TabIndex = 3;
-            // 
-            // IpAndPortDivider
-            // 
-            this.IpAndPortDivider.AutoSize = true;
-            this.IpAndPortDivider.Location = new System.Drawing.Point(484, 126);
-            this.IpAndPortDivider.Name = "IpAndPortDivider";
-            this.IpAndPortDivider.Size = new System.Drawing.Size(18, 25);
-            this.IpAndPortDivider.TabIndex = 4;
-            this.IpAndPortDivider.Text = ":";
             // 
             // RulesBox
             // 
@@ -111,8 +93,6 @@
             this.Controls.Add(this.MessageBox);
             this.Controls.Add(this.PlayerNameBox);
             this.Controls.Add(this.RulesBox);
-            this.Controls.Add(this.IpAndPortDivider);
-            this.Controls.Add(this.PortField);
             this.Controls.Add(this.IPField);
             this.Controls.Add(this.JoinGameButton);
             this.Controls.Add(this.HostGameButton);
@@ -128,8 +108,6 @@
         private System.Windows.Forms.Button HostGameButton;
         private System.Windows.Forms.Button JoinGameButton;
         private System.Windows.Forms.TextBox IPField;
-        private System.Windows.Forms.TextBox PortField;
-        private System.Windows.Forms.Label IpAndPortDivider;
         private System.Windows.Forms.TextBox RulesBox;
         private System.Windows.Forms.TextBox PlayerNameBox;
         private System.Windows.Forms.Label MessageBox;

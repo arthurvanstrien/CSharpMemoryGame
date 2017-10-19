@@ -44,14 +44,7 @@ namespace MemoryGame
             JoinGameButton.Click += new EventHandler(joinGameButton_Click);
             void joinGameButton_Click(object sender, EventArgs e)
             {
-
-
-                //Opens the new window.
-                //Game gamePanel = new Game();
-                //gamePanel.Show();
-
-                //Hides the startup window
-                //Hide();
+                new ConnectGame(this);
             }
 
 
@@ -69,23 +62,6 @@ namespace MemoryGame
                 if (IPField.Text == "")
                     IPField.Text = ipFieldPlaceholder;
             }
-
-
-            string portFieldPlaceholder = "port";
-            PortField.Text = portFieldPlaceholder;
-            PortField.GotFocus += new EventHandler(clearPortField);
-            void clearPortField(object sender, EventArgs e)
-            {
-                if (PortField.Text == portFieldPlaceholder)
-                    PortField.Text = "";
-            }
-            PortField.LostFocus += new EventHandler(fillPortField);
-            void fillPortField(object sender, EventArgs e)
-            {
-                if (PortField.Text == "")
-                    PortField.Text = portFieldPlaceholder;
-            }
-
 
             List<string> rulesBoxList = new List<string>();
             string rulesBoxText = "";
@@ -141,15 +117,20 @@ namespace MemoryGame
                 IPField.Enabled = state;
             }));
 
-            PortField.Invoke(new Action(() =>
-            {
-                PortField.Enabled = state;
-            }));
-
             PlayerNameBox.Invoke(new Action(() =>
             {
                 PlayerNameBox.Enabled = state;
             }));
+        }
+
+        public string getIPField()
+        {
+            return IPField.Text;
+        }
+
+        public string getPlayerName()
+        {
+            return PlayerNameBox.Text;
         }
     }
 }

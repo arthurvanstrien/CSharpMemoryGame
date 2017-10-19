@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cards.cs" />
+    <Compile Include="ConnectGame.cs" />
     <Compile Include="Game.cs">
       <SubType>Form</SubType>
     </Compile>
