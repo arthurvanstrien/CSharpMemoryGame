@@ -132,5 +132,13 @@ namespace MemoryGame
         {
             return PlayerNameBox.Text;
         }
+
+        public void HideScreen()
+        {
+            Invoke(new Action(() =>
+            {
+                Hide();
+            }));
+        }
     }
 }

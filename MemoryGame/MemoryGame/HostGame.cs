@@ -99,7 +99,7 @@ namespace MemoryGame
             gamePanel.Show();
 
             //Hides the startup window
-            hostGame.startupScreen.Hide();
+            hostGame.startupScreen.HideScreen();
         }
 
         private static void WriteToConsole(string message)
