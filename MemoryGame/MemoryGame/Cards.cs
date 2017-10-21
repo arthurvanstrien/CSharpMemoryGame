@@ -35,7 +35,7 @@ namespace MemoryGame
             };
         }
 
-        public List<string> getRandomCards(int numberOf)
+        public List<string> GetRandomCards(int numberOf)
         {
             List<string> cards = new List<string>();
             images = images.OrderBy(a => Guid.NewGuid()).ToList();

@@ -1,35 +1,74 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 namespace MemoryGame
 {
     class ConnectGame
     {
+        private TcpClient Client { get; }
+        private StartupScreen StartupScreen { get; }
+        private List<string> Cards { get; }
+        private string Playername { get; }
+        private int X { get; set;  }
+        private int Y { get; set; }
+
         public ConnectGame(StartupScreen startupScreen)
         {
-            TcpClient client = new TcpClient();
-            client.Connect(startupScreen.getIPField(), 1300);
-            startupScreen.SetMessageBox("Establishing connection", System.Drawing.Color.Blue);
-            startupScreen.EnableInput(false);
+            Client = new TcpClient();
+            Client.Connect(startupScreen.getIPField(), 1300);
+            StartupScreen = startupScreen;
+            Cards = new List<string>();
+            Playername = StartupScreen.getPlayerName();
+            X = 0;
+            Y = 0;
 
-            StreamWriter streamWriter = new StreamWriter(client.GetStream(), Encoding.ASCII);
-            streamWriter.WriteLine("HI");
-            streamWriter.Flush();
+            StartupScreen.SetMessageBox("Establishing connection", System.Drawing.Color.Blue);
+            StartupScreen.EnableInput(false);
+
+            Thread thread = new Thread(SetupGame);
+            thread.Start(this);
+        }
+
+        private static void SetupGame(object obj)
+        {
+            ConnectGame connectGame = obj as ConnectGame;
+            TcpClient client = connectGame.Client;
 
             StreamReader streamReader = new StreamReader(client.GetStream(), Encoding.ASCII);
-            WriteToConsole(streamReader.ReadLine());
+            StreamWriter streamWriter = new StreamWriter(client.GetStream(), Encoding.ASCII);
 
-            //TODO: Update data of the game panel with data from the serverside.
-            Game gamePanel = new Game(startupScreen.getPlayerName(), "Connecting player name TODO", 6, 6);
-            gamePanel.Show();
+            //Recieving the other players playername.
+            string hostPlayerName = streamReader.ReadLine();
 
-            //Hides the startup window
-            startupScreen.Hide();
+            //Recieving the dimenstions of the board.
+            connectGame.X = int.Parse(streamReader.ReadLine());
+            connectGame.Y = int.Parse(streamReader.ReadLine());
+
+            //Recieving the cards from the host.
+            for (int i = 0; i < (connectGame.X * connectGame.Y); i++)
+            {
+                connectGame.Cards.Add(streamReader.ReadLine());
+            }
+
+            //Send the playername to the host.
+            streamWriter.WriteLine(connectGame.Playername);
+            streamWriter.Flush();
+
+            StartGame(hostPlayerName, connectGame);
 
             //Final step: always close connection or the port stays locked.
             client.Close();
+        }
+
+        private static void StartGame(string opponent, ConnectGame connectGame)
+        {
+            Game gamePanel = new Game(connectGame.Playername, opponent, connectGame.X, connectGame.Y);
+            gamePanel.Show();
+            connectGame.StartupScreen.HideScreen();
         }
 
         private static void WriteToConsole(string message)

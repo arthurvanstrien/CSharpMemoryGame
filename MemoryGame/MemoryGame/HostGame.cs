@@ -11,18 +11,18 @@ namespace MemoryGame
 {
     class HostGame
     {
-        private List<string> cards;
-        private string playerName;
-        private int x;
-        private int y;
+        private List<string> Cards { get; }
+        private string PlayerName { get; }
+        private int X { get; } 
+        private int Y { get; }
         private StartupScreen startupScreen;
 
         public HostGame(int x, int y, string playerName, StartupScreen startupScreen)
         {
-            cards = new Cards().getRandomCards(x * y);
-            this.playerName = playerName;
-            this.x = x;
-            this.y = y;
+            Cards = new Cards().GetRandomCards(x * y);
+            PlayerName = playerName;
+            X = x;
+            Y = y;
             this.startupScreen = startupScreen;
 
             Thread thread = new Thread(WaitForPlayer);
@@ -80,22 +80,37 @@ namespace MemoryGame
             WriteToConsole("Client connected.");
 
             StreamReader streamReader = new StreamReader(client.GetStream(), Encoding.ASCII);
-            WriteToConsole(streamReader.ReadLine());
-
             StreamWriter streamWriter = new StreamWriter(client.GetStream(), Encoding.ASCII);
-            streamWriter.WriteLine("OK");
+
+            //Sending our playername to the other player.
+            streamWriter.WriteLine(hostGame.PlayerName);
             streamWriter.Flush();
+
+            //Sending the amount of cards we are going to send to the other player.
+            streamWriter.WriteLine(hostGame.X);
+            streamWriter.WriteLine(hostGame.Y);
+            streamWriter.Flush();
+
+            //Writing the actual cards to the other player.
+            foreach (string card in hostGame.Cards)
+            {
+                streamWriter.WriteLine(card);
+                streamWriter.Flush();
+            }
+
+            //Recieving the name from the connected player.
+            string connectedPlayerName = streamReader.ReadLine();
+
+            StartGame(connectedPlayerName, hostGame);
 
             client.Close();
             WriteToConsole("Connection closed");
-
-            StartGame("opponent", hostGame);
         }
 
         private static void StartGame(string opponent, HostGame hostGame)
         {
             //Opens the new window.
-            Game gamePanel = new Game(hostGame.playerName, opponent, hostGame.x, hostGame.y);
+            Game gamePanel = new Game(hostGame.PlayerName, opponent, hostGame.X, hostGame.Y);
             gamePanel.Show();
 
             //Hides the startup window
