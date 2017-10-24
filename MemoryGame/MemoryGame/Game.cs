@@ -202,7 +202,7 @@ namespace MemoryGame
             {
                 string line = streamReader.ReadLine();
                 int card = int.Parse(line);
-                UpdateLabelClicked(new Point(card % ((int)x), card / ((int)y)));
+                UpdateLabelClicked(new Point(card % ((int)y), card / ((int)x)));
             }
         }
 
