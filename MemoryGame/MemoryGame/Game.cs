@@ -142,7 +142,8 @@ namespace MemoryGame
                 string directoryPath = Path.GetDirectoryName(Application.ExecutablePath);
                 string directory = Directory.GetParent(Directory.GetParent(directoryPath).ToString()).ToString();
                 directory = Path.Combine(directory, "Resources");
-                Path.Combine(directory, Images[(int)(CellClicked.Y * y + CellClicked.X)]);
+
+                directory = Path.Combine(directory, Images[(int)(CellClicked.Y * y + CellClicked.X)]);
                 Bitmap oldimage = new Bitmap(directory);
                 Bitmap newImage = new Bitmap(oldimage, imagesize);
                 
