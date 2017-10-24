@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MemoryGame
 {
@@ -117,7 +118,7 @@ namespace MemoryGame
         {
             //Opens the new window.
             Game gamePanel = new Game(hostGame.PlayerName, opponent, hostGame.X, hostGame.Y, hostGame.Cards);
-            gamePanel.Show();
+            Application.Run(gamePanel);
 
             //Hides the startup window
             hostGame.startupScreen.HideScreen();

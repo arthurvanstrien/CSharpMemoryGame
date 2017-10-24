@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace MemoryGame
 {
@@ -74,7 +75,7 @@ namespace MemoryGame
         private static void StartGame(string opponent, ConnectGame connectGame)
         {
             Game gamePanel = new Game(connectGame.Playername, opponent, connectGame.X, connectGame.Y, connectGame.Cards);
-            gamePanel.Show();
+            Application.Run(gamePanel);
             connectGame.StartupScreen.HideScreen();
         }
 

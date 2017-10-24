@@ -25,7 +25,6 @@ namespace MemoryGame
             Player1LB.Text = p1;
             Player2LB.Text = p2;
 
-
             for (int i = 0; i <= x; i++)
             {
                 RowStyle style = new RowStyle();
@@ -66,6 +65,8 @@ namespace MemoryGame
                     newLabel.MouseClick += new MouseEventHandler(OnClick);
                 }
             }
+
+            Show();
         }
 
         public void OnClick(object sender, MouseEventArgs e)
