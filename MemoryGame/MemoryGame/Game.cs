@@ -82,13 +82,13 @@ namespace MemoryGame
             thread.Start();
             ColourPanel();
 
-            if (MemoryGrid.Width / y > MemoryGrid.Width / x)
+            if (MemoryGrid.Width / y > MemoryGrid.Height / x)
             {
-                imagesize = new Size(MemoryGrid.Width / (int)x - 10, MemoryGrid.Width / (int)y - 10);
+                imagesize = new Size(MemoryGrid.Height / (int)x - 20, MemoryGrid.Height / (int)x - 20);
             }
             else
             {
-                imagesize = new Size(MemoryGrid.Width / (int)y - 10, MemoryGrid.Width / (int)y - 10);
+                imagesize = new Size(MemoryGrid.Width / (int)y - 20, MemoryGrid.Width / (int)y - 20);
             }
 
             Show();
@@ -132,9 +132,6 @@ namespace MemoryGame
                     EndTurn();
                 }
             }
-            // send data
-
-            
         }
 
         private void CardFlip(Point CellClicked) {
@@ -187,6 +184,19 @@ namespace MemoryGame
             secondCell = flipCheck;
             MyTurn = !MyTurn;
             ColourPanel();
+            if (player2Score + player1Score == x * y / 2) {
+                if (player1Score > player2Score)
+                {
+                    MessageBox.Show("Jij hebt gewonnen");
+                }
+                else if (player1Score < player2Score)
+                {
+                    MessageBox.Show("Jij hebt verloren");
+                }
+                else {
+                    MessageBox.Show("Het is gelijkspel");
+                }
+            }
         }
 
         private void GrayOut() {
