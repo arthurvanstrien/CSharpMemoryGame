@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,7 +17,20 @@ namespace MemoryGame
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new StartupScreen());
+            List<string> images = new List<string>();
+            string directoryPath = Path.GetDirectoryName(Application.ExecutablePath);
+            string directory = Directory.GetParent(Directory.GetParent(directoryPath).ToString()).ToString();
+            string fileName = "Resources\\6Siegeicon.png";
+            string sixSiegePath = Path.Combine(directory, fileName);
+            fileName = "Resources\\LeagueIcon.png";
+            string LeaguePath = Path.Combine(directory, fileName);
+
+            images.Add(sixSiegePath);
+            images.Add(LeaguePath);
+            images.Add(LeaguePath);
+            images.Add(sixSiegePath);
+
+            Application.Run(new Game("patrick", "arthur", 2, 2, images));
         }
     }
 }
