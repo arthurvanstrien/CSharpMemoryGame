@@ -96,29 +96,29 @@ namespace MemoryGame
         private void LabelClicked(Point CellClicked) {
             if (firstCell == flipCheck)
             {
-                cardFlip(CellClicked);
+                CardFlip(CellClicked);
                 firstCell = CellClicked;
             }
             else if (secondCell == flipCheck && firstCell != CellClicked)
             {
-                cardFlip(CellClicked);
+                CardFlip(CellClicked);
                 secondCell = CellClicked;
-                cellCheck();
+                CellCheck();
             }
             else if (firstCell == CellClicked || secondCell == CellClicked)
             {
-                cardFlip(CellClicked);
+                CardFlip(CellClicked);
             }
             // send data
 
-            if (endTurnCheck())
+            if (EndTurnCheck())
             {
-                endTurn();
+                EndTurn();
             }
 
         }
 
-        private void cardFlip(Point CellClicked) {
+        private void CardFlip(Point CellClicked) {
             Label newLabel = (Label)MemoryGrid.GetControlFromPosition(CellClicked.X, CellClicked.Y);
             if (newLabel.Text == "")
             {
@@ -134,7 +134,7 @@ namespace MemoryGame
             this.Refresh();
         }
 
-        public void cellCheck() {
+        public void CellCheck() {
             Label firstLabel = (Label)MemoryGrid.GetControlFromPosition(firstCell.X, firstCell.Y);
             Label secondLabel = (Label)MemoryGrid.GetControlFromPosition(secondCell.X, secondCell.Y);
             if (Images[(int)(firstCell.Y * y + firstCell.X)] == Images[(int)(secondCell.Y * y + secondCell.X)]) {
@@ -146,11 +146,11 @@ namespace MemoryGame
                     player2Score++;
                     Score2LB.Text = "score: " + player2Score.ToString();
                 }
-                grayOut();
-                endTurn();
+                GrayOut();
+                EndTurn();
             }
         }
-        private Boolean endTurnCheck() {
+        private Boolean EndTurnCheck() {
             Label firstLabel = (Label)MemoryGrid.GetControlFromPosition(firstCell.X, firstCell.Y);
             Label secondLabel = (Label)MemoryGrid.GetControlFromPosition(secondCell.X, secondCell.Y);
             if (firstLabel.Text == "" && secondLabel?.Text == "") {
@@ -161,7 +161,7 @@ namespace MemoryGame
 
         
 
-        private void endTurn() {
+        private void EndTurn() {
             //TODO
             MyTurn = false;
             
@@ -169,15 +169,11 @@ namespace MemoryGame
             //Send stuff
         }
 
-        private void send() {
+        private static void Read() {
 
         }
 
-        private void read() {
-
-        }
-
-        private void grayOut() {
+        private void GrayOut() {
             Label firstLabel = (Label)MemoryGrid.GetControlFromPosition(firstCell.X, firstCell.Y);
             Label secondLabel = (Label)MemoryGrid.GetControlFromPosition(secondCell.X, secondCell.Y);
 
