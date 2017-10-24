@@ -123,12 +123,12 @@ namespace MemoryGame
             }));
         }
 
-        public string getIPField()
+        public string GetIPField()
         {
             return IPField.Text;
         }
 
-        public string getPlayerName()
+        public string GetPlayerName()
         {
             return PlayerNameBox.Text;
         }
