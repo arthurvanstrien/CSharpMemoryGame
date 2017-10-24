@@ -122,6 +122,8 @@ namespace MemoryGame
             if (EndTurnCheck())
             {
                 EndTurn();
+                firstCell = flipCheck;
+                secondCell = flipCheck;
             }
 
         }
