@@ -68,7 +68,6 @@ namespace MemoryGame
                 {
                     Label newLabel = new Label();
                     newLabel.Text = "";
-                    newLabel.BackColor = Color.FromArgb(rand.Next(50, 255), rand.Next(50, 255), rand.Next(50, 255));
                     newLabel.Dock = DockStyle.Fill;
                     newLabel.Margin = p;
                     MemoryGrid.Controls.Add(newLabel, j, i);
@@ -79,7 +78,7 @@ namespace MemoryGame
             //Make the thread that listens to the input from the otherside.
             Thread thread = new Thread(Reader);
             thread.Start();
-
+            ColourPanel();
             Show();
         }
 
@@ -90,7 +89,7 @@ namespace MemoryGame
             int width = MemoryGrid.GetColumnWidths()[pos.Column];
             int height = MemoryGrid.GetRowHeights()[pos.Row];
 
-            CellSizeLB.Text = "myTurn: " + MyTurn;
+            ColourPanel();
 
             if (MyTurn)
             {
@@ -171,6 +170,7 @@ namespace MemoryGame
 
         private void EndTurn() {
             MyTurn = !MyTurn;
+            ColourPanel();
         }
 
         private void GrayOut() {
@@ -202,7 +202,7 @@ namespace MemoryGame
             {
                 string line = streamReader.ReadLine();
                 int card = int.Parse(line);
-                UpdateLabelClicked(new Point(card % ((int)y), card / ((int)x)));
+                UpdateLabelClicked(new Point(card % ((int)y), card / ((int)y)));
             }
         }
 
@@ -212,6 +212,19 @@ namespace MemoryGame
             {
                 LabelClicked(point);
             }));
+        }
+
+        private void ColourPanel() {
+            if (MyTurn)
+            {
+                Player1PN.BackColor = Color.Green;
+                Player2PN.BackColor = Color.Red;
+            }
+            else
+            {
+                Player2PN.BackColor = Color.Green;
+                Player1PN.BackColor = Color.Red;
+            }
         }
     }
 }
