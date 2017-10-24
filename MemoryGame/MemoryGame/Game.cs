@@ -139,7 +139,11 @@ namespace MemoryGame
             Label newLabel = (Label)MemoryGrid.GetControlFromPosition(CellClicked.X, CellClicked.Y);
             if (newLabel.Text == "")
             {
-                Bitmap oldimage = new Bitmap(Images[(int)(CellClicked.Y * y + CellClicked.X)]);
+                string directoryPath = Path.GetDirectoryName(Application.ExecutablePath);
+                string directory = Directory.GetParent(Directory.GetParent(directoryPath).ToString()).ToString();
+                directory = Path.Combine(directory, "Resources");
+                Path.Combine(directory, Images[(int)(CellClicked.Y * y + CellClicked.X)]);
+                Bitmap oldimage = new Bitmap(directory);
                 Bitmap newImage = new Bitmap(oldimage, imagesize);
                 
                 newLabel.Image = newImage;
