@@ -38,7 +38,7 @@ namespace MemoryGame
             IPAddress localhost;
 
             bool ipIsOk = IPAddress.TryParse("127.0.0.1", out localhost);
-            if (!ipIsOk) { WriteToConsole("The IP adress cannot be parsed."); Environment.Exit(1); }
+            if (!ipIsOk) { WriteToConsole("The IP adress cannot be parsed."); Application.Restart(); Environment.Exit(1); }
 
             TcpListener listener = new TcpListener(localhost, 1300);
             listener.Start();
@@ -84,41 +84,48 @@ namespace MemoryGame
             StreamReader streamReader = new StreamReader(client.GetStream(), Encoding.ASCII);
             StreamWriter streamWriter = new StreamWriter(client.GetStream(), Encoding.ASCII);
 
-            //Sending our playername to the other player.
-            streamWriter.WriteLine(hostGame.PlayerName);
-            streamWriter.Flush();
-
-            //Sending the amount of cards we are going to send to the other player.
-            streamWriter.WriteLine(hostGame.X);
-            streamWriter.Flush();
-            streamWriter.WriteLine(hostGame.Y);
-            streamWriter.Flush();
-            WriteToConsole("Y * X: " + hostGame.X * hostGame.Y);
-            WriteToConsole("Number of cards: " + hostGame.Cards.Count);
-
-            //Writing the actual cards to the other player.
-            foreach (string card in hostGame.Cards)
+            try
             {
-                streamWriter.WriteLine(card);
+
+                //Sending our playername to the other player.
+                streamWriter.WriteLine(hostGame.PlayerName);
                 streamWriter.Flush();
-                WriteToConsole(card);
+
+                //Sending the amount of cards we are going to send to the other player.
+                streamWriter.WriteLine(hostGame.X);
+                streamWriter.Flush();
+                streamWriter.WriteLine(hostGame.Y);
+                streamWriter.Flush();
+                WriteToConsole("Y * X: " + hostGame.X * hostGame.Y);
+                WriteToConsole("Number of cards: " + hostGame.Cards.Count);
+
+                //Writing the actual cards to the other player.
+                foreach (string card in hostGame.Cards)
+                {
+                    streamWriter.WriteLine(card);
+                    streamWriter.Flush();
+                    WriteToConsole(card);
+                }
+
+                //Determine who's turn it is.
+                Random rand = new Random(2);
+                hostGame.Heads = rand.NextDouble() == 0;
+                streamWriter.WriteLine(!hostGame.Heads);
+                streamWriter.Flush();
+                WriteToConsole("myturn --> " + hostGame.Heads);
+
+                //Recieving the name from the connected player.
+                string connectedPlayerName = streamReader.ReadLine();
+
+                StartGame(connectedPlayerName, hostGame, streamReader, streamWriter);
             }
-
-            //Determine who's turn it is.
-            Random rand = new Random(2);
-            hostGame.Heads = rand.NextDouble() == 0;
-            streamWriter.WriteLine(!hostGame.Heads);
-            streamWriter.Flush();
-            WriteToConsole("myturn --> " + hostGame.Heads);
-
-            //Recieving the name from the connected player.
-            string connectedPlayerName = streamReader.ReadLine();
-
-            StartGame(connectedPlayerName, hostGame, streamReader, streamWriter);
-
-            client.Close();
-            WriteToConsole("Connection closed");
-        }
+            catch (Exception e)
+            {
+                Console.Write(e);
+                Application.Restart();
+                Environment.Exit(0);
+            }
+}
 
         private static void StartGame(string opponent, HostGame hostGame, StreamReader streamReader, StreamWriter streamWriter)
         {

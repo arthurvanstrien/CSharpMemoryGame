@@ -200,9 +200,18 @@ namespace MemoryGame
         {
             while (true)
             {
-                string line = streamReader.ReadLine();
-                int card = int.Parse(line);
-                UpdateLabelClicked(new Point(card % ((int)y), card / ((int)x)));
+                try
+                {
+                    string line = streamReader.ReadLine();
+                    int card = int.Parse(line);
+                    UpdateLabelClicked(new Point(card % ((int)y), card / ((int)x)));
+                }
+                catch (Exception e)
+                {
+                    Console.Write(e);
+                    Application.Restart();
+                    Environment.Exit(0);
+                }
             }
         }
 
