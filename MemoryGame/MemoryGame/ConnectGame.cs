@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
@@ -20,25 +21,33 @@ namespace MemoryGame
 
         public ConnectGame(StartupScreen startupScreen)
         {
-            Client = new TcpClient();
-            Client.Connect(startupScreen.GetIPField(), 1300);
-            StartupScreen = startupScreen;
-            Cards = new List<string>();
-            Playername = StartupScreen.GetPlayerName();
-            X = 0;
-            Y = 0;
-
-            StartupScreen.SetMessageBox("Establishing connection", System.Drawing.Color.Blue);
-            StartupScreen.EnableInput(false);
-
             try
             {
-                Thread thread = new Thread(SetupGame);
-                thread.Start(this);
+                Client = new TcpClient();
+                Client.Connect(startupScreen.GetIPField(), 1300);
+                StartupScreen = startupScreen;
+                Cards = new List<string>();
+                Playername = StartupScreen.GetPlayerName();
+                X = 0;
+                Y = 0;
+
+                StartupScreen.SetMessageBox("Establishing connection", System.Drawing.Color.Blue);
+                StartupScreen.EnableInput(false);
+
+                try
+                {
+                    Thread thread = new Thread(SetupGame);
+                    thread.Start(this);
+                }
+                catch
+                {
+                    StartupScreen.SetMessageBox("Unable to connect to game", System.Drawing.Color.Red);
+                }
             }
-            catch
+            catch(Exception e)
             {
-                StartupScreen.SetMessageBox("Unable to connect to game", System.Drawing.Color.Red);
+                Console.Write(e);
+                startupScreen.SetMessageBox("IP is invalid/Host is offline", Color.Red);
             }
         }
 
