@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MemoryGame
@@ -30,7 +28,7 @@ namespace MemoryGame
             images.Add(LeaguePath);
             images.Add(sixSiegePath);
 
-            Application.Run(new Game("patrick", "arthur", 2, 2, images));
+            Application.Run(new StartupScreen());
         }
     }
 }

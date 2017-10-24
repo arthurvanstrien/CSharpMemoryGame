@@ -73,7 +73,7 @@ namespace MemoryGame
 
         private static void StartGame(string opponent, ConnectGame connectGame)
         {
-            Game gamePanel = new Game(connectGame.Playername, opponent, connectGame.X, connectGame.Y);
+            Game gamePanel = new Game(connectGame.Playername, opponent, connectGame.X, connectGame.Y, connectGame.Cards);
             gamePanel.Show();
             connectGame.StartupScreen.HideScreen();
         }

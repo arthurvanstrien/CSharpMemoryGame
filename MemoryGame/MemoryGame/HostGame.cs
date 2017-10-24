@@ -116,7 +116,7 @@ namespace MemoryGame
         private static void StartGame(string opponent, HostGame hostGame)
         {
             //Opens the new window.
-            Game gamePanel = new Game(hostGame.PlayerName, opponent, hostGame.X, hostGame.Y);
+            Game gamePanel = new Game(hostGame.PlayerName, opponent, hostGame.X, hostGame.Y, hostGame.Cards);
             gamePanel.Show();
 
             //Hides the startup window
