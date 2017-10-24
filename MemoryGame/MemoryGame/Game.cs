@@ -78,7 +78,7 @@ namespace MemoryGame
 
             //Make the thread that listens to the input from the otherside.
             Thread thread = new Thread(Reader);
-            thread.Start(this);
+            thread.Start();
 
             Show();
         }
@@ -95,7 +95,9 @@ namespace MemoryGame
             if (MyTurn)
             {
                 LabelClicked(CellClicked);
-                streamWriter.WriteLine((CellClicked.Y * y + CellClicked.X).ToString());
+                string message = (CellClicked.Y * (int) y + CellClicked.X).ToString();
+                streamWriter.WriteLine(message);
+                streamWriter.Flush();
             }
         }
 
@@ -169,13 +171,6 @@ namespace MemoryGame
             MyTurn = !MyTurn;
         }
 
-        private static void Reader(object obj)
-        {
-            Game game = obj as Game;
-            int card = int.Parse(game.streamReader.ReadLine());
-            game.LabelClicked(new Point(card % ((int)game.x), card / ((int)game.y)));
-        }
-
         private void GrayOut() {
             Label firstLabel = (Label)MemoryGrid.GetControlFromPosition(firstCell.X, firstCell.Y);
             Label secondLabel = (Label)MemoryGrid.GetControlFromPosition(secondCell.X, secondCell.Y);
@@ -197,6 +192,24 @@ namespace MemoryGame
             secondLabel.Image = grayImage;
             firstLabel.BackColor = Color.Gray;
             secondLabel.BackColor = Color.Gray;
+        }
+
+        private void Reader()
+        {
+            while (true)
+            {
+                string line = streamReader.ReadLine();
+                int card = int.Parse(line);
+                UpdateLabelClicked(new Point(card % ((int)x), card / ((int)y)));
+            }
+        }
+
+        private void UpdateLabelClicked(Point point)
+        {
+            Invoke(new Action(() =>
+            {
+                LabelClicked(point);
+            }));
         }
     }
 }

@@ -107,7 +107,7 @@ namespace MemoryGame
             //Determine who's turn it is.
             Random rand = new Random(2);
             hostGame.Heads = rand.NextDouble() == 0;
-            streamWriter.WriteLine(hostGame.Heads);
+            streamWriter.WriteLine(!hostGame.Heads);
             streamWriter.Flush();
             WriteToConsole("myturn --> " + hostGame.Heads);
 

@@ -118,12 +118,68 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Ark.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\_6Siegeicon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LeagueIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\borderlands2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\callOfDuty4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\civ5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ETS2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\factorio.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FS15.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GTAV.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kf2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\League.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\openTTD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OrcsMustDieUnchained.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Overwatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\portal2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RocketLeague.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Smite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\terraria.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\6Siege.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

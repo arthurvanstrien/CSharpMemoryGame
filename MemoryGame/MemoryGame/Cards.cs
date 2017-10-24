@@ -1,49 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace MemoryGame
 {
     class Cards
     {
-        List<string> images;
-
         public Cards()
         {
-            images = new List<string>
-            {
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19",
-                "20"
-            };
+            
         }
 
         public List<string> GetRandomCards(int numberOf)
         {
             List<string> cards = new List<string>();
-            images = images.OrderBy(a => Guid.NewGuid()).ToList();
+
+            string directoryPath = Path.GetDirectoryName(Application.ExecutablePath);
+            string directory = Directory.GetParent(Directory.GetParent(directoryPath).ToString()).ToString();
+            directory = Path.Combine(directory, "Resources");
+            string[] images = Directory.GetFiles(directory);
 
             for (int i = 0; i < ((numberOf / 2)); i++)
             {
-                cards.Add(images[i]);
-                cards.Add(images[i]);
+                string filePath = images[i];
+                //string filePath = Path.Combine(directory, fileName);
+                cards.Add(filePath);
+                cards.Add(filePath);
             }
 
             cards = cards.OrderBy(a => Guid.NewGuid()).ToList();
