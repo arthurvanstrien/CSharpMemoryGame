@@ -8,16 +8,27 @@ namespace MemoryGame
 {
     public partial class Game : Form
     {
+        StreamReader streamReader;
+        StreamWriter streamWriter;
         Boolean MyTurn;
         float x;
         float y;
+        int player1Score = 0;
+        int player2Score = 0;
+        Point firstCell, secondCell, flipCheck;
         List<string> Images;
 
-        public Game(string p1, string p2, int columns, int rows, List<string> Images)
+        public Game(string p1, string p2, int columns, int rows, List<string> Images, Boolean heads, StreamReader streamReader, StreamWriter streamWriter)
         {
+            MyTurn = heads;
+            this.streamReader = streamReader;
+            this.streamWriter = streamWriter;
             this.Images = Images;
             x = columns;
             y = rows;
+            flipCheck = new Point(10, 10);
+            firstCell = flipCheck;
+            secondCell = flipCheck;
             InitializeComponent();
             MemoryGrid.Controls.Clear();
             MemoryGrid.ColumnCount = (int)y;
@@ -77,16 +88,62 @@ namespace MemoryGame
 
             CellSizeLB.Text = CellClicked + " Height = " + height + " Width = " + width;
 
-            //Cardflip
+            if (MyTurn)
+            {
+                LabelClicked(CellClicked);
+            }
+
+
+        }
+
+        private void LabelClicked(Point CellClicked) {
+            if (firstCell == flipCheck)
+            {
+                cardFlip(CellClicked);
+                firstCell = CellClicked;
+            }
+            else if (secondCell == flipCheck && firstCell != CellClicked)
+            {
+                cardFlip(CellClicked);
+                secondCell = CellClicked;
+                cellCheck();
+            }
+            else if (firstCell == CellClicked || secondCell == CellClicked)
+            {
+                cardFlip(CellClicked);
+            }
+            // send data
+
+            
+        }
+
+        private void cardFlip(Point CellClicked) {
             Label newLabel = (Label)MemoryGrid.GetControlFromPosition(CellClicked.X, CellClicked.Y);
-            if (newLabel.Text == "") { 
+            if (newLabel.Text == "")
+            {
                 newLabel.Image = Image.FromFile(Images[(int)(CellClicked.Y * y + CellClicked.X)]);
-            newLabel.Text = " "; }
-            else{
+                newLabel.Text = " ";
+            }
+            else
+            {
                 newLabel.Image = null;
                 newLabel.Text = "";
             }
+        }
 
+        public void cellCheck() {
+            Label firstLabel = (Label)MemoryGrid.GetControlFromPosition(firstCell.X, firstCell.Y);
+            Label secondLabel = (Label)MemoryGrid.GetControlFromPosition(secondCell.X, secondCell.Y);
+            if (Images[(int)(firstCell.Y * y + firstCell.X)] == Images[(int)(secondCell.Y * y + secondCell.X)]) {
+                if (MyTurn) {
+                    player1Score++;
+                    Score1LB.Text = "score: " + player1Score.ToString();
+                }else
+                {
+                    player2Score++;
+                    Score2LB.Text = "score: " + player2Score.ToString();
+                }
+            }
         }
     }
 }
