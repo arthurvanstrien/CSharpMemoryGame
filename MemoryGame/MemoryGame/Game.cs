@@ -109,6 +109,7 @@ namespace MemoryGame
                 string message = (CellClicked.Y * (int) y + CellClicked.X).ToString();
                 streamWriter.WriteLine(message);
                 streamWriter.Flush();
+                gamewon();
             }
         }
 
@@ -184,19 +185,6 @@ namespace MemoryGame
             secondCell = flipCheck;
             MyTurn = !MyTurn;
             ColourPanel();
-            if (player2Score + player1Score == x * y / 2) {
-                if (player1Score > player2Score)
-                {
-                    MessageBox.Show("Jij hebt gewonnen");
-                }
-                else if (player1Score < player2Score)
-                {
-                    MessageBox.Show("Jij hebt verloren");
-                }
-                else {
-                    MessageBox.Show("Het is gelijkspel");
-                }
-            }
         }
 
         private void GrayOut() {
@@ -229,6 +217,7 @@ namespace MemoryGame
                 string line = streamReader.ReadLine();
                 int card = int.Parse(line);
                 UpdateLabelClicked(new Point(card % ((int)y), card / ((int)y)));
+                gamewon();
             }
         }
 
@@ -250,6 +239,29 @@ namespace MemoryGame
             {
                 Player2PN.BackColor = Color.Green;
                 Player1PN.BackColor = Color.Red;
+            }
+        }
+
+        public void gamewon() {
+            if (player2Score + player1Score == x * y / 2)
+            {
+                DialogResult result;
+                if (player1Score > player2Score)
+                {
+                    result = MessageBox.Show("Einde spel", "Jij hebt gewonnen");
+                }
+                else if (player1Score < player2Score)
+                {
+                    result = MessageBox.Show("Einde spel", "Jij hebt verloren");
+                }
+                else
+                {
+                    result = MessageBox.Show("Einde spel", "Het is gelijkspel");
+                }
+                if (result == DialogResult.OK) {
+                    Application.Restart();
+                    Environment.Exit(0);
+                }
             }
         }
     }
