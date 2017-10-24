@@ -248,17 +248,22 @@ namespace MemoryGame
                 DialogResult result;
                 if (player1Score > player2Score)
                 {
-                    result = MessageBox.Show("Einde spel", "Jij hebt gewonnen");
+                    result = MessageBox.Show("Jij hebt gewonnen", "Einde spel");
                 }
                 else if (player1Score < player2Score)
                 {
-                    result = MessageBox.Show("Einde spel", "Jij hebt verloren");
+                    result = MessageBox.Show("Jij hebt verloren", "Einde spel");
                 }
                 else
                 {
-                    result = MessageBox.Show("Einde spel", "Het is gelijkspel");
+                    result = MessageBox.Show("Het is gelijkspel", "Einde spel");
                 }
-                if (result == DialogResult.OK) {
+                if (result == DialogResult.OK)
+                {
+                    Application.Restart();
+                    Environment.Exit(0);
+                }
+                else {
                     Application.Restart();
                     Environment.Exit(0);
                 }
