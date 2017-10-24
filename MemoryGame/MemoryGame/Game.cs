@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace MemoryGame
@@ -75,6 +76,10 @@ namespace MemoryGame
                 }
             }
 
+            //Make the thread that listens to the input from the otherside.
+            Thread thread = new Thread(Reader);
+            thread.Start(this);
+
             Show();
         }
 
@@ -90,6 +95,7 @@ namespace MemoryGame
             if (MyTurn)
             {
                 LabelClicked(CellClicked);
+                streamWriter.WriteLine((CellClicked.Y * y + CellClicked.X).ToString());
             }
         }
 
@@ -159,18 +165,15 @@ namespace MemoryGame
             return false;
         }
 
-        
-
         private void EndTurn() {
-            //TODO
-            MyTurn = false;
-            
-            
-            //Send stuff
+            MyTurn = !MyTurn;
         }
 
-        private static void Read() {
-
+        private static void Reader(object obj)
+        {
+            Game game = obj as Game;
+            int card = int.Parse(game.streamReader.ReadLine());
+            game.LabelClicked(new Point(card % ((int)game.x), card / ((int)game.y)));
         }
 
         private void GrayOut() {
