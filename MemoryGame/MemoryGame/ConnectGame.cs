@@ -19,10 +19,10 @@ namespace MemoryGame
         public ConnectGame(StartupScreen startupScreen)
         {
             Client = new TcpClient();
-            Client.Connect(startupScreen.getIPField(), 1300);
+            Client.Connect(startupScreen.GetIPField(), 1300);
             StartupScreen = startupScreen;
             Cards = new List<string>();
-            Playername = StartupScreen.getPlayerName();
+            Playername = StartupScreen.GetPlayerName();
             X = 0;
             Y = 0;
 
@@ -47,12 +47,19 @@ namespace MemoryGame
             //Recieving the dimenstions of the board.
             connectGame.X = int.Parse(streamReader.ReadLine());
             connectGame.Y = int.Parse(streamReader.ReadLine());
+            WriteToConsole("Number of cards: " + connectGame.Y * connectGame.X);
 
+            string card;
             //Recieving the cards from the host.
             for (int i = 0; i < (connectGame.X * connectGame.Y); i++)
             {
-                connectGame.Cards.Add(streamReader.ReadLine());
+                WriteToConsole(" --> I: " + i);
+                card = streamReader.ReadLine();
+                connectGame.Cards.Add(card);
+                WriteToConsole(card);
             }
+
+            WriteToConsole("out of loop");
 
             //Send the playername to the host.
             streamWriter.WriteLine(connectGame.Playername);
