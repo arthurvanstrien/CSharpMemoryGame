@@ -69,15 +69,15 @@ namespace MemoryGame
             streamWriter.WriteLine(connectGame.Playername);
             streamWriter.Flush();
 
-            StartGame(hostPlayerName, connectGame);
+            StartGame(hostPlayerName, connectGame, streamReader, streamWriter);
 
             //Final step: always close connection or the port stays locked.
             client.Close();
         }
 
-        private static void StartGame(string opponent, ConnectGame connectGame)
+        private static void StartGame(string opponent, ConnectGame connectGame, StreamReader streamReader, StreamWriter streamWriter)
         {
-            Game gamePanel = new Game(connectGame.Playername, opponent, connectGame.X, connectGame.Y, connectGame.Cards);
+            Game gamePanel = new Game(connectGame.Playername, opponent, connectGame.X, connectGame.Y, connectGame.Cards, connectGame.Heads, streamReader, streamWriter);
             Application.Run(gamePanel);
             connectGame.StartupScreen.HideScreen();
         }

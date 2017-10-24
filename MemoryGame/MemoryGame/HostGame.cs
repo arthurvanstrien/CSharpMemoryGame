@@ -114,16 +114,16 @@ namespace MemoryGame
             //Recieving the name from the connected player.
             string connectedPlayerName = streamReader.ReadLine();
 
-            StartGame(connectedPlayerName, hostGame);
+            StartGame(connectedPlayerName, hostGame, streamReader, streamWriter);
 
             client.Close();
             WriteToConsole("Connection closed");
         }
 
-        private static void StartGame(string opponent, HostGame hostGame)
+        private static void StartGame(string opponent, HostGame hostGame, StreamReader streamReader, StreamWriter streamWriter)
         {
             //Opens the new window.
-            Game gamePanel = new Game(hostGame.PlayerName, opponent, hostGame.X, hostGame.Y, hostGame.Cards);
+            Game gamePanel = new Game(hostGame.PlayerName, opponent, hostGame.X, hostGame.Y, hostGame.Cards, hostGame.Heads, streamReader, streamWriter);
             Application.Run(gamePanel);
 
             //Hides the startup window
