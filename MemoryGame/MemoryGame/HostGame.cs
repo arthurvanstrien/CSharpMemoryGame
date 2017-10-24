@@ -88,15 +88,21 @@ namespace MemoryGame
 
             //Sending the amount of cards we are going to send to the other player.
             streamWriter.WriteLine(hostGame.X);
+            streamWriter.Flush();
             streamWriter.WriteLine(hostGame.Y);
             streamWriter.Flush();
+            WriteToConsole("Y * X: " + hostGame.X * hostGame.Y);
+            WriteToConsole("Number of cards: " + hostGame.Cards.Count);
 
             //Writing the actual cards to the other player.
             foreach (string card in hostGame.Cards)
             {
                 streamWriter.WriteLine(card);
                 streamWriter.Flush();
+                WriteToConsole(card);
             }
+
+            WriteToConsole("out of loop");
 
             //Recieving the name from the connected player.
             string connectedPlayerName = streamReader.ReadLine();
