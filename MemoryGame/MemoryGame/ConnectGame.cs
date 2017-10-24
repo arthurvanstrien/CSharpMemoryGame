@@ -16,6 +16,7 @@ namespace MemoryGame
         private string Playername { get; }
         private int X { get; set;  }
         private int Y { get; set; }
+        private bool Heads { get; set; }
 
         public ConnectGame(StartupScreen startupScreen)
         {
@@ -60,7 +61,9 @@ namespace MemoryGame
                 WriteToConsole(card);
             }
 
-            WriteToConsole("out of loop");
+            //Revieve wich player will start.
+            connectGame.Heads = bool.Parse(streamReader.ReadLine());
+            WriteToConsole("myturn --> " + connectGame.Heads);
 
             //Send the playername to the host.
             streamWriter.WriteLine(connectGame.Playername);

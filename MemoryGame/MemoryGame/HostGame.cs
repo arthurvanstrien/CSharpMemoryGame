@@ -17,6 +17,7 @@ namespace MemoryGame
         private int X { get; } 
         private int Y { get; }
         private StartupScreen startupScreen;
+        private bool Heads { get; set; }
 
         public HostGame(int x, int y, string playerName, StartupScreen startupScreen)
         {
@@ -103,7 +104,12 @@ namespace MemoryGame
                 WriteToConsole(card);
             }
 
-            WriteToConsole("out of loop");
+            //Determine who's turn it is.
+            Random rand = new Random(2);
+            hostGame.Heads = rand.NextDouble() == 0;
+            streamWriter.WriteLine(hostGame.Heads);
+            streamWriter.Flush();
+            WriteToConsole("myturn --> " + hostGame.Heads);
 
             //Recieving the name from the connected player.
             string connectedPlayerName = streamReader.ReadLine();

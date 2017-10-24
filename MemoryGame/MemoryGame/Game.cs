@@ -48,8 +48,6 @@ namespace MemoryGame
                 style.Width = MemoryGrid.Width / y;
             }
 
-
-
             Random rand = new Random();
             Padding p = new Padding(2,2,2,2);
             for (int i = 0; i < x; i++)
