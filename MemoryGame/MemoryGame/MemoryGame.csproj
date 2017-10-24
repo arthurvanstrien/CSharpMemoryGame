@@ -122,12 +122,6 @@
     <None Include="Resources\Ark.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\_6Siegeicon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LeagueIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\borderlands2.png" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +174,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\6Siege.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cs.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

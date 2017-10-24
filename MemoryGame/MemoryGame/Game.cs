@@ -18,6 +18,7 @@ namespace MemoryGame
         int player2Score = 0;
         Point firstCell, secondCell, flipCheck;
         List<string> Images;
+        Size imagesize;
 
         public Game(string p1, string p2, int columns, int rows, List<string> Images, Boolean heads, StreamReader streamReader, StreamWriter streamWriter)
         {
@@ -68,8 +69,8 @@ namespace MemoryGame
                 {
                     Label newLabel = new Label();
                     newLabel.Text = "";
-                    newLabel.BackColor = Color.FromArgb(rand.Next(50, 255), rand.Next(50, 255), rand.Next(50, 255));
                     newLabel.Dock = DockStyle.Fill;
+                    newLabel.BackColor = Color.LightGray;
                     newLabel.Margin = p;
                     MemoryGrid.Controls.Add(newLabel, j, i);
                     newLabel.MouseClick += new MouseEventHandler(OnClick);
@@ -79,6 +80,16 @@ namespace MemoryGame
             //Make the thread that listens to the input from the otherside.
             Thread thread = new Thread(Reader);
             thread.Start();
+            ColourPanel();
+
+            if (MemoryGrid.Width / y > MemoryGrid.Height / x)
+            {
+                imagesize = new Size(MemoryGrid.Height / (int)x - 20, MemoryGrid.Height / (int)x - 20);
+            }
+            else
+            {
+                imagesize = new Size(MemoryGrid.Width / (int)y - 20, MemoryGrid.Width / (int)y - 20);
+            }
 
             Show();
         }
@@ -90,7 +101,7 @@ namespace MemoryGame
             int width = MemoryGrid.GetColumnWidths()[pos.Column];
             int height = MemoryGrid.GetRowHeights()[pos.Row];
 
-            CellSizeLB.Text = "myTurn: " + MyTurn;
+            ColourPanel();
 
             if (MyTurn)
             {
@@ -98,6 +109,7 @@ namespace MemoryGame
                 string message = (CellClicked.Y * (int) y + CellClicked.X).ToString();
                 streamWriter.WriteLine(message);
                 streamWriter.Flush();
+                gamewon();
             }
         }
 
@@ -116,23 +128,20 @@ namespace MemoryGame
             else if (firstCell == CellClicked || secondCell == CellClicked)
             {
                 CardFlip(CellClicked);
+                if (EndTurnCheck())
+                {
+                    EndTurn();
+                }
             }
-            // send data
-
-            if (EndTurnCheck())
-            {
-                EndTurn();
-                firstCell = flipCheck;
-                secondCell = flipCheck;
-            }
-
         }
 
         private void CardFlip(Point CellClicked) {
             Label newLabel = (Label)MemoryGrid.GetControlFromPosition(CellClicked.X, CellClicked.Y);
             if (newLabel.Text == "")
             {
-                Image newImage = Image.FromFile(Images[(int)(CellClicked.Y * y + CellClicked.X)]);
+                Bitmap oldimage = new Bitmap(Images[(int)(CellClicked.Y * y + CellClicked.X)]);
+                Bitmap newImage = new Bitmap(oldimage, imagesize);
+                
                 newLabel.Image = newImage;
                 newLabel.Text = " ";
             }
@@ -157,6 +166,8 @@ namespace MemoryGame
                     Score2LB.Text = "score: " + player2Score.ToString();
                 }
                 GrayOut();
+                firstLabel.MouseClick -= new MouseEventHandler(OnClick);
+                secondLabel.MouseClick -= new MouseEventHandler(OnClick);
                 EndTurn();
             }
         }
@@ -170,7 +181,10 @@ namespace MemoryGame
         }
 
         private void EndTurn() {
+            firstCell = flipCheck;
+            secondCell = flipCheck;
             MyTurn = !MyTurn;
+            ColourPanel();
         }
 
         private void GrayOut() {
@@ -192,8 +206,8 @@ namespace MemoryGame
             }
             firstLabel.Image = grayImage;
             secondLabel.Image = grayImage;
-            firstLabel.BackColor = Color.Gray;
-            secondLabel.BackColor = Color.Gray;
+            firstLabel.BackColor = Color.DarkGray;
+            secondLabel.BackColor = Color.DarkGray;
         }
 
         private void Reader()
@@ -204,7 +218,8 @@ namespace MemoryGame
                 {
                     string line = streamReader.ReadLine();
                     int card = int.Parse(line);
-                    UpdateLabelClicked(new Point(card % ((int)y), card / ((int)x)));
+                    UpdateLabelClicked(new Point(card % ((int)y), card / ((int)y)));
+                    gamewon();
                 }
                 catch (Exception e)
                 {
@@ -221,6 +236,42 @@ namespace MemoryGame
             {
                 LabelClicked(point);
             }));
+        }
+
+        private void ColourPanel() {
+            if (MyTurn)
+            {
+                Player1PN.BackColor = Color.Green;
+                Player2PN.BackColor = Color.Red;
+            }
+            else
+            {
+                Player2PN.BackColor = Color.Green;
+                Player1PN.BackColor = Color.Red;
+            }
+        }
+
+        public void gamewon() {
+            if (player2Score + player1Score == x * y / 2)
+            {
+                DialogResult result;
+                if (player1Score > player2Score)
+                {
+                    result = MessageBox.Show("Einde spel", "Jij hebt gewonnen");
+                }
+                else if (player1Score < player2Score)
+                {
+                    result = MessageBox.Show("Einde spel", "Jij hebt verloren");
+                }
+                else
+                {
+                    result = MessageBox.Show("Einde spel", "Het is gelijkspel");
+                }
+                if (result == DialogResult.OK) {
+                    Application.Restart();
+                    Environment.Exit(0);
+                }
+            }
         }
     }
 }
