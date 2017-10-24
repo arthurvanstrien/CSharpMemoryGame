@@ -85,14 +85,12 @@ namespace MemoryGame
             int width = MemoryGrid.GetColumnWidths()[pos.Column];
             int height = MemoryGrid.GetRowHeights()[pos.Row];
 
-            CellSizeLB.Text = CellClicked + " Height = " + height + " Width = " + width;
+            CellSizeLB.Text = "myTurn: " + MyTurn;
 
             if (MyTurn)
             {
                 LabelClicked(CellClicked);
             }
-
-
         }
 
         private void LabelClicked(Point CellClicked) {
@@ -113,14 +111,19 @@ namespace MemoryGame
             }
             // send data
 
-            
+            if (endTurnCheck())
+            {
+                endTurn();
+            }
+
         }
 
         private void cardFlip(Point CellClicked) {
             Label newLabel = (Label)MemoryGrid.GetControlFromPosition(CellClicked.X, CellClicked.Y);
             if (newLabel.Text == "")
             {
-                newLabel.Image = Image.FromFile(Images[(int)(CellClicked.Y * y + CellClicked.X)]);
+                Image newImage = Image.FromFile(Images[(int)(CellClicked.Y * y + CellClicked.X)]);
+                newLabel.Image = newImage;
                 newLabel.Text = " ";
             }
             else
@@ -128,6 +131,7 @@ namespace MemoryGame
                 newLabel.Image = null;
                 newLabel.Text = "";
             }
+            this.Refresh();
         }
 
         public void cellCheck() {
@@ -142,7 +146,58 @@ namespace MemoryGame
                     player2Score++;
                     Score2LB.Text = "score: " + player2Score.ToString();
                 }
+                grayOut();
+                endTurn();
             }
+        }
+        private Boolean endTurnCheck() {
+            Label firstLabel = (Label)MemoryGrid.GetControlFromPosition(firstCell.X, firstCell.Y);
+            Label secondLabel = (Label)MemoryGrid.GetControlFromPosition(secondCell.X, secondCell.Y);
+            if (firstLabel.Text == "" && secondLabel?.Text == "") {
+                return true;
+            }
+            return false;
+        }
+
+        
+
+        private void endTurn() {
+            //TODO
+            MyTurn = false;
+            
+            
+            //Send stuff
+        }
+
+        private void send() {
+
+        }
+
+        private void read() {
+
+        }
+
+        private void grayOut() {
+            Label firstLabel = (Label)MemoryGrid.GetControlFromPosition(firstCell.X, firstCell.Y);
+            Label secondLabel = (Label)MemoryGrid.GetControlFromPosition(secondCell.X, secondCell.Y);
+
+            Bitmap colouredImage = new Bitmap(firstLabel.Image);
+                Bitmap grayImage = new Bitmap(colouredImage.Width, colouredImage.Height);
+
+            for (int i = 0; i < colouredImage.Width; i++)
+            {
+                for (int x = 0; x < colouredImage.Height; x++)
+                {
+                    Color oc = colouredImage.GetPixel(i, x);
+                    int grayScale = (int)((oc.R * 0.3) + (oc.G * 0.59) + (oc.B * 0.11));
+                    Color nc = Color.FromArgb(oc.A, grayScale, grayScale, grayScale);
+                    grayImage.SetPixel(i, x, nc);
+                }
+            }
+            firstLabel.Image = grayImage;
+            secondLabel.Image = grayImage;
+            firstLabel.BackColor = Color.Gray;
+            secondLabel.BackColor = Color.Gray;
         }
     }
 }
